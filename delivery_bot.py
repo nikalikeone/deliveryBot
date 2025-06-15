@@ -133,7 +133,8 @@ def get_place(message):
             message_to_group += f"Тип: {current_type}\n"
         if current_row:
             message_to_group += f"Ряд: {current_row}\n"
-        message_to_group += f"Место: {current_place}\nПользователь: {message.from_user.username or message.from_user.id}"
+        message_to_group += f"Место: {current_place}"
+        # \nПользователь: {message.from_user.username or message.from_user.id}
         bot.send_message(message.chat.id, "Уже идем к Вам") # Отправляем сообщение пользователю
     elif current_action == 'bar':
         message_to_group = f"Новый заказ из бара:\nЗаказ: {current_order}\nЗона: {current_zone}\n"
@@ -141,7 +142,8 @@ def get_place(message):
             message_to_group += f"Тип: {current_type}\n"
         if current_row:
             message_to_group += f"Ряд: {current_row}\n"
-        message_to_group += f"Место: {current_place}\nПользователь: {message.from_user.username or message.from_user.id}"
+        message_to_group += f"Место: {current_place}"
+        # \nПользователь: {message.from_user.username or message.from_user.id}
         bot.send_message(message.chat.id, "Уже готовим") # Отправляем сообщение пользователю
 
     # Отправляем сообщение в группу
