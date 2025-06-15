@@ -17,6 +17,15 @@ current_row = None
 current_place = None
 current_order = None
 
+def reset_state():
+    global current_action, current_zone, current_type, current_row, current_place, current_order
+    current_action = None
+    current_zone = None
+    current_type = None
+    current_row = None
+    current_place = None
+    current_order = None
+
 # --- Клавиатуры ---
 
 def create_main_menu():
@@ -124,7 +133,18 @@ def handle_row(message):
 
 def get_place(message):
     global current_place
-    current_place = message.text
+    current_place = message.text.strip()
+
+    # Проверка, что пользователь ввел номер места (только цифры)
+    if not current_place.isdigit():
+        bot.send_message(message.chat.id, "Пожалуйста, введите корректный номер места (только цифры):")
+        bot.register_next_step_handler(message, get_place)
+        return
+
+    # Проверка наличия всех необходимых данных перед отправкой
+    if current_action is None or current_zone is None:
+        bot.send_message(message.chat.id, "Похоже, что вы начали новый заказ или произошла ошибка. Пожалуйста, нажмите /start для начала.")
+        return
 
     # Формируем сообщение для группы
     if current_action == 'hookah':
