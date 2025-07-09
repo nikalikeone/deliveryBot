@@ -78,20 +78,20 @@ def create_green_row_keyboard():
 def start(message):
     def start(message):
         user_id = message.chat.id
-    # # Проверяем, если пользователь в состоянии "ожидание меню после заказа"
-    # if user_states.get(user_id) == 'waiting_menu_after_order':
-    #     # Просто показываем меню без сброса данных
-    #     with open("menu.png", 'rb') as photo:
-    #         bot.send_photo(message.chat.id, photo)
-    #     bot.send_message(message.chat.id, "Добро пожаловать! Выберите действие:", reply_markup=create_main_menu())
-    #     # Не сбрасываем состояние
-    #     return
-    # else:
-    #     # Обычное поведение: сбросить все переменные и показать меню
-    #     reset_state()
-    #     with open("menu.png", 'rb') as photo:
-    #         bot.send_photo(message.chat.id, photo)
-    #     bot.send_message(message.chat.id, "Добро пожаловать! Выберите действие:", reply_markup=create_main_menu())
+        # Проверяем, если пользователь в состоянии "ожидание меню после заказа"
+        if user_states.get(user_id) == 'waiting_menu_after_order':
+            # Просто показываем меню без сброса данных
+            with open("menu.png", 'rb') as photo:
+                bot.send_photo(message.chat.id, photo)
+            bot.send_message(message.chat.id, "Добро пожаловать! Выберите действие:", reply_markup=create_main_menu())
+            # Не сбрасываем состояние
+            return
+        else:
+            # Обычное поведение: сбросить все переменные и показать меню
+            reset_state()
+            with open("menu.png", 'rb') as photo:
+                bot.send_photo(message.chat.id, photo)
+            bot.send_message(message.chat.id, "Добро пожаловать! Выберите действие:", reply_markup=create_main_menu())
     global current_action, current_zone, current_type, current_row, current_place, current_order
     # Сбрасываем все переменные состояния
     current_action = None
@@ -117,8 +117,8 @@ def handle_bar(message):
     current_action = 'bar'
     bot.send_message(message.chat.id, "Напишите, пожалуйста, что Вам принести:")
     bot.register_next_step_handler(message, get_order)
-    # # Устанавливаем состояние для возврата к меню после /start
-    # user_states[message.chat.id] = 'waiting_menu_after_order'
+    # Устанавливаем состояние для возврата к меню после /start
+    user_states[message.chat.id] = 'waiting_menu_after_order'
 
 def get_order(message):
     global current_order
