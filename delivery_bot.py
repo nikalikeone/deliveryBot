@@ -7,6 +7,8 @@ import os
 BOT_TOKEN = "8177335454:AAExDJLIcmi-2deehgxtrruyBiv90LwlGJE"
 GROUP_ID = -1002609493790  # Замените на ID вашей группы
 
+user_states = {}
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # Глобальные переменные для хранения данных о заказе
