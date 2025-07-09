@@ -7,7 +7,7 @@ import os
 BOT_TOKEN = "8177335454:AAExDJLIcmi-2deehgxtrruyBiv90LwlGJE"
 GROUP_ID = -1002609493790  # Замените на ID вашей группы
 
-# user_states = {}
+user_states = {}
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -76,21 +76,20 @@ def create_green_row_keyboard():
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    def start(message):
-        user_id = message.chat.id
-        # Проверяем, если пользователь в состоянии "ожидание меню после заказа"
-        if user_states.get(user_id) == 'waiting_menu_after_order':
-            # Просто показываем меню без сброса данных
-            with open("menu.png", 'rb') as photo:
-                bot.send_photo(message.chat.id, photo)
+    user_id = message.chat.id
+    # Проверяем, если пользователь в состоянии "ожидание меню после заказа"
+    if user_states.get(user_id) == 'waiting_menu_after_order':
+        # Просто показываем меню без сброса данных
+        with open("menu.png", 'rb') as photo:
+            bot.send_photo(message.chat.id, photo)
             bot.send_message(message.chat.id, "Добро пожаловать! Выберите действие:", reply_markup=create_main_menu())
             # Не сбрасываем состояние
             return
-        else:
-            # Обычное поведение: сбросить все переменные и показать меню
-            reset_state()
-            with open("menu.png", 'rb') as photo:
-                bot.send_photo(message.chat.id, photo)
+    else:
+        # Обычное поведение: сбросить все переменные и показать меню
+        reset_state()
+        with open("menu.png", 'rb') as photo:
+            bot.send_photo(message.chat.id, photo)
             bot.send_message(message.chat.id, "Добро пожаловать! Выберите действие:", reply_markup=create_main_menu())
     global current_action, current_zone, current_type, current_row, current_place, current_order
     # Сбрасываем все переменные состояния
