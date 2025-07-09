@@ -77,7 +77,7 @@ def create_green_row_keyboard():
 @bot.message_handler(commands=['start'])
 def start(message):
     def start(message):
-    user_id = message.chat.id
+        user_id = message.chat.id
     # # Проверяем, если пользователь в состоянии "ожидание меню после заказа"
     # if user_states.get(user_id) == 'waiting_menu_after_order':
     #     # Просто показываем меню без сброса данных
