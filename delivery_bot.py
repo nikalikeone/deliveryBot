@@ -86,8 +86,9 @@ def start(message):
     current_place = None
     current_order = None
 
-    with open("menu.png", 'rb') as photo: # Замените на путь к вашему изображению
+    with open("menu.png", 'rb') as photo, open("hookha-menu.png", 'rb') as photo2: # Замените на путь к вашему изображению
         bot.send_photo(message.chat.id, photo)
+        bot.send_photo(message.chat.id, photo2)
         bot.send_message(message.chat.id, "Добро пожаловать! Выберите действие:", reply_markup=create_main_menu())
 
 @bot.message_handler(func=lambda message: message.text == "Вызвать кальянного мастера")
