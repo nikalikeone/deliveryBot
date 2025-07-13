@@ -101,7 +101,7 @@ def handle_hookah(message):
 def handle_bar(message):
     global current_action
     current_action = 'bar'
-    bot.send_message(message.chat.id, "Напишите, пожалуйста, что Вам принести:")
+    bot.send_message(message.chat.id, "Напишите, пожалуйста, что Вам принести:\nПри вводе заказа не забудьте указать детали(объем, алкогольное/безалкогольное)")
     bot.register_next_step_handler(message, get_order)
 
 def get_order(message):
