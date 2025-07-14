@@ -78,14 +78,8 @@ def create_green_row_keyboard():
 def start(message):
     user_id = message.chat.id
 
-    global current_action, current_zone, current_type, current_row, current_place, current_order
     # Сбрасываем все переменные состояния
-    current_action = None
-    current_zone = None
-    current_type = None
-    current_row = None
-    current_place = None
-    current_order = None
+    reset_state()
 
     with open("menu.png", 'rb') as photo, open("hookha-menu.png", 'rb') as photo2: # Замените на путь к вашему изображению
         # bot.send_photo(message.chat.id, photo)
@@ -106,6 +100,9 @@ def handle_hookah(message):
 #     bot.register_next_step_handler(message, get_order)
 
 def get_order(message):
+    if message.text == "/start":
+        start(message)
+        return
     global current_order
     current_order = message.text
     bot.send_message(message.chat.id, "Выберите зону:", reply_markup=create_zone_keyboard())
