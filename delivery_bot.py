@@ -32,9 +32,9 @@ def reset_state():
 def create_main_menu():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     item_hookah = types.KeyboardButton("Вызвать кальянного мастера")
-    # item_bar = types.KeyboardButton("Заказать по меню Бара")
-    markup.add(item_hookah)
-    # , item_bar
+    item_bar = types.KeyboardButton("Заказать по меню Бара")
+    markup.add(item_hookah, item_bar)
+    
     return markup
 
 def create_zone_keyboard():
@@ -82,7 +82,7 @@ def start(message):
     reset_state()
 
     with open("menu.png", 'rb') as photo, open("hookha-menu.png", 'rb') as photo2: # Замените на путь к вашему изображению
-        # bot.send_photo(message.chat.id, photo)
+        bot.send_photo(message.chat.id, photo)
         bot.send_photo(message.chat.id, photo2)
         bot.send_message(message.chat.id, "Добро пожаловать!\nВ связи с погодными условиями сегодня доступен заказ только кальянов, спасибо за понимание.\nВыберите действие:", reply_markup=create_main_menu())
 
@@ -92,12 +92,12 @@ def handle_hookah(message):
     current_action = 'hookah'
     bot.send_message(message.chat.id, "Выберите зону:", reply_markup=create_zone_keyboard())
 
-# @bot.message_handler(func=lambda message: message.text == "Заказать по меню Бара")
-# def handle_bar(message):
-#     global current_action
-#     current_action = 'bar'
-#     bot.send_message(message.chat.id, "Напишите, пожалуйста, что Вам принести:\nПри вводе заказа не забудьте указать детали(объем, алкогольное/безалкогольное)")
-#     bot.register_next_step_handler(message, get_order)
+@bot.message_handler(func=lambda message: message.text == "Заказать по меню Бара")
+def handle_bar(message):
+    global current_action
+    current_action = 'bar'
+    bot.send_message(message.chat.id, "Напишите, пожалуйста, что Вам принести:\nПри вводе заказа не забудьте указать детали(объем, алкогольное/безалкогольное)")
+    bot.register_next_step_handler(message, get_order)
 
 def get_order(message):
     if message.text == "/start":
