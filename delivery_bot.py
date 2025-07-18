@@ -170,7 +170,7 @@ def get_place(message):
             message_to_group += f"Ряд: {current_row}\n"
         message_to_group += f"Место: {current_place}"
         # \nПользователь: {message.from_user.username or message.from_user.id}
-        bot.send_message(message.chat.id, "Уже готовим") # Отправляем сообщение пользователю
+        bot.send_message(message.chat.id, "Уже готовим./nПожалуйста, в ближайшие 5-10 минут ожидайте на месте.") # Отправляем сообщение пользователю
 
     # Отправляем сообщение в группу
     bot.send_message(GROUP_ID, message_to_group) # Отправляем сообщение в группу
